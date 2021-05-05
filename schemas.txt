@@ -1,0 +1,65 @@
+SOURCE
+
+DATABASE: gmoney-nba-team-records-by-year
+		(records from season 1949-50 to 2016-17)
+SCHEMA:{Records/4}
+	Records:<year, team, record, winning_percentage>
+	
+DATABASE: datadavis-nba-salaries
+		(salaries from 1985 to 2018)
+SCHEMA:{Players/24,Salaries/7}
+	Salaries:<league, player_id, salary, season, season_end, season_start, team>
+	Players:<id, birthdate, birthplace, career_ast, career_fg, career_fg3, career_ft, career_g, career_per, career_pts, career_trb, career_ws, career_efg, collage, draft_pick, draft_round, draft_team, draft_year, height, highschool, name, position, shoots, weight>
+
+DATABASE:datatouille-nba-finals-and-mvp
+		(finals and mvp from 1950 to 2018)
+SCHEMA{FinalsAndMVP/14}	
+	Finals:<year, western_champion, eastern_champion, result, nba_champion, nba_vice_champion, final_sweep, mvp_name, mvp_height_m, mvp_height_ft, mvp_position, mvp_team, mvp_nationality, mvp_status>
+	
+DATABASE: gmoney-nba-team-annual-attendance
+		(annual attendance from 2000 to 2015)
+SCHEMA:{Records/11}
+	Records:<starting_year, rank, team, home_total_games, home_total_attendance, home_avg_attendance, home_capacity, away_total_games, away_total_attendance, away_avg_attendance, away_capacity>
+
+
+DATABASE: neo4j-nba
+SCHEMA: 
+		Coach:<name, total_games, total_wins, total_losses, teams_coached>
+			{MATCH (n:Coach) RETURN n...}
+		Coached:<coach, team, wins, games, losses >
+			{Match (n:Coach)-[r:COACHED]->(m) return n.name,m.team, r.wins,r.games,r.losses}
+		Player:<"rebounds","fg%","blocks","draft_pick","pre_draft_team","3p%","steals","points","assists","seasons_played","ft%","name", 			"teams_played","position","draft_class">
+			{MATCH (n:player) RETURN n...}
+		Game:<"date","final_score","winner","away_team_score","loser","home_team_score","home_team","away_team">
+			{MATCH (n:Game) RETURN n...}
+		Team:<"division","owner","conference","city","year_founded","general_manager","name","short","arena">
+			{MATCH (n:Team) RETURN n...}
+		Roaster:<"home_record","wins","year","games": 82,"team","losses","coaches">
+			{MATCH (n:Roaster) RETURN n...}
+		PlayedAt:<"rebounds","year","fg%","minutes","blocks","2p%","3p%","steals","points","assists","ft%","games","games_started","position"			"age",player, roster>
+			{Match (n:Player)-[r:PLAYED_AT]->(m:Roster) return n.name,m.team,r...}
+		Award:<name, short>
+			{MATCH (n:Award) RETURN n..}
+		WonAward:<player, award,"year">
+			{MATCH (n:Player)-[r:WON]->(m:Award) RETURN n.name, m.name, r.year}
+		WonCOY:<coach,year>
+			{MATCH (n)-[r:WON]->(m:COY) RETURN n.name, r.year}
+
+
+GLOBAL SCHEMA:
+'Team:<"division","owner","conference","city","year_founded","general_manager","name","short","arena">
+'Player:<name,position, draft_year, draft_pick, pre_draft_team, season_played, teams_played,points, assist rebounds, blocks>
+'Coach:<name, total_games, total_wins, total_losses, teams_coached>
+'Coached:<coach, team, wins, games, losses, >
+'Roaster:<"home_record","wins","year","games","team","losses">
+'PlayedAt:<player, team, year,age,"rebounds","minutes","blocks","steals","points","assists","games","games_started","position">
+'Award:<name, short>
+'WonAward:<player, award,year>
+'WonCOY:<coach,year>
+Attendances:<starting_year, rank, team_nick, home_total_games, home_total_attendance, home_avg_attendance, home_capacity, away_total_games, 				away_total_attendance, away_avg_attendance, away_capacity>
+'Salaries:<player, salary, season>
+Records:<year, team_nick, record, winning_percentage>
+Finals:<year, western_champion, eastern_champion, result, nba_champion, nba_vice_champion, final_sweep>
+
+
+GAV MAPPING:
