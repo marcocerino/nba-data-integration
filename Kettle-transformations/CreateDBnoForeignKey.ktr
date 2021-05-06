@@ -759,7 +759,7 @@ CREATE TABLE  Champion
     <sql>DROP TABLE IF EXISTS Record;
 CREATE TABLE Record
 (
-  "year" VARCHAR(9)
+  "year" BIGINT
 , team text
 , record VARCHAR(5)
 , winning_percentage BIGINT
@@ -989,7 +989,7 @@ CREATE TABLE Salary
 (
   player VARCHAR(24)
 , salary BIGINT
-, season VARCHAR(7)
+, season BIGINT
 )
 ;</sql>
     <set_params>N</set_params>

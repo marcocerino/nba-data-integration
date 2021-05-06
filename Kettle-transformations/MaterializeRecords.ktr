@@ -431,7 +431,7 @@
     <created_date>2021/05/05 14:45:10.561</created_date>
     <modified_user>-</modified_user>
     <modified_date>2021/05/05 14:45:10.561</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -540,15 +540,167 @@
     </hop>
     <hop>
       <from>Select values 2</from>
-      <to>Table output</to>
+      <to>Sort rows 5</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values 2</from>
-      <to>Text file output</to>
+      <from>CSV file input</from>
+      <to>Merge join 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 5</from>
+      <to>Merge join 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join 3</from>
+      <to>Select values 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values 3</from>
+      <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <step>
+    <name>CSV file input</name>
+    <type>CsvInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>/home/cerino/Projects/nba-data-integration/source-db/Season.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
+    <fields>
+      <field>
+        <name>season</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>9</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>year</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>576</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>CSV nick input</name>
+    <type>CsvInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>/home/cerino/Projects/nba-data-integration/myFunction.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
+    <fields>
+      <field>
+        <name>name</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>22</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>city</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>13</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>nick</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>13</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>CSV recordsinput</name>
     <type>CsvInput</type>
@@ -635,8 +787,8 @@
     </GUI>
   </step>
   <step>
-    <name>CSV nick input</name>
-    <type>CsvInput</type>
+    <name>Merge join</name>
+    <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -645,54 +797,168 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>/home/cerino/Projects/nba-data-integration/myFunction.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
-    <fields>
-      <field>
+    <join_type>INNER</join_type>
+    <step1>Sort rows</step1>
+    <step2>Sort rows 2</step2>
+    <keys_1>
+      <key>team</key>
+    </keys_1>
+    <keys_2>
+      <key>nick</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Merge join 2</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>Sort rows 4</step1>
+    <step2>Sort rows 3</step2>
+    <keys_1>
+      <key>name</key>
+    </keys_1>
+    <keys_2>
+      <key>team</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1040</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Merge join 3</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step1>CSV file input</step1>
+    <step2>Sort rows 5</step2>
+    <keys_1>
+      <key>season</key>
+    </keys_1>
+    <keys_2>
+      <key>year</key>
+    </keys_2>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1232</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Neo4j Cypher</name>
+    <type>Neo4jCypherOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>nba-connection</connection>
+    <cypher>MATCH (n:Team) WHERE n.city is not null
+Return n.name as name</cypher>
+    <batch_size/>
+    <read_only>N</read_only>
+    <retry>Y</retry>
+    <cypher_from_field>N</cypher_from_field>
+    <cypher_field/>
+    <unwind>N</unwind>
+    <unwind_map/>
+    <returning_graph>N</returning_graph>
+    <return_graph_field/>
+    <mappings/>
+    <returns>
+      <return>
         <name>name</name>
         <type>String</type>
-        <format/>
-        <currency>€</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>22</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <source_type>String</source_type>
+      </return>
+    </returns>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>year</name>
       </field>
       <field>
-        <name>city</name>
-        <type>String</type>
-        <format/>
-        <currency>€</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>13</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <name>record</name>
       </field>
       <field>
-        <name>nick</name>
-        <type>String</type>
-        <format/>
-        <currency>€</currency>
-        <decimal>,</decimal>
-        <group>.</group>
-        <length>13</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <name>winning_percentage</name>
       </field>
+      <field>
+        <name>name</name>
+        <rename>team</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -703,8 +969,88 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>256</yloc>
+      <xloc>752</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>year</name>
+      </field>
+      <field>
+        <name>record</name>
+      </field>
+      <field>
+        <name>winning_percentage</name>
+      </field>
+      <field>
+        <name>team</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1216</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values 3</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>year</name>
+      </field>
+      <field>
+        <name>record</name>
+      </field>
+      <field>
+        <name>winning_percentage</name>
+      </field>
+      <field>
+        <name>team</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1376</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -793,129 +1139,6 @@
     </GUI>
   </step>
   <step>
-    <name>Merge join</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <join_type>INNER</join_type>
-    <step1>Sort rows</step1>
-    <step2>Sort rows 2</step2>
-    <keys_1>
-      <key>team</key>
-    </keys_1>
-    <keys_2>
-      <key>nick</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>year</name>
-        <rename/>
-      </field>
-      <field>
-        <name>record</name>
-        <rename/>
-      </field>
-      <field>
-        <name>winning_percentage</name>
-        <rename/>
-      </field>
-      <field>
-        <name>name</name>
-        <rename>team</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>752</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Neo4j Cypher</name>
-    <type>Neo4jCypherOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>nba-connection</connection>
-    <cypher>MATCH (n:Team) WHERE n.city is not null
-Return n.name as name</cypher>
-    <batch_size/>
-    <read_only>N</read_only>
-    <retry>Y</retry>
-    <cypher_from_field>N</cypher_from_field>
-    <cypher_field/>
-    <unwind>N</unwind>
-    <unwind_map/>
-    <returning_graph>N</returning_graph>
-    <return_graph_field/>
-    <mappings/>
-    <returns>
-      <return>
-        <name>name</name>
-        <type>String</type>
-        <source_type>String</source_type>
-      </return>
-    </returns>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
-      <yloc>416</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Sort rows 3</name>
     <type>SortRows</type>
     <description/>
@@ -1000,8 +1223,8 @@ Return n.name as name</cypher>
     </GUI>
   </step>
   <step>
-    <name>Merge join 2</name>
-    <type>MergeJoin</type>
+    <name>Sort rows 5</name>
+    <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1010,58 +1233,46 @@ Return n.name as name</cypher>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <join_type>INNER</join_type>
-    <step1>Sort rows 4</step1>
-    <step2>Sort rows 3</step2>
-    <keys_1>
-      <key>name</key>
-    </keys_1>
-    <keys_2>
-      <key>team</key>
-    </keys_2>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1040</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values 2</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
     <fields>
       <field>
         <name>year</name>
-        <rename/>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
       </field>
       <field>
         <name>record</name>
-        <rename/>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
       </field>
       <field>
         <name>winning_percentage</name>
-        <rename/>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
       </field>
       <field>
         <name>team</name>
-        <rename/>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
       </field>
-      <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1072,8 +1283,8 @@ Return n.name as name</cypher>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1152</xloc>
-      <yloc>256</yloc>
+      <xloc>1248</xloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1092,7 +1303,7 @@ Return n.name as name</cypher>
     <schema/>
     <table>Record</table>
     <commit>1000</commit>
-    <truncate>Y</truncate>
+    <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>N</specify_fields>
@@ -1116,65 +1327,8 @@ Return n.name as name</cypher>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1216</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Text file output</name>
-    <type>TextFileOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <separator>;</separator>
-    <enclosure>"</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding/>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>file</name>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery/>
-    </file>
-    <fields>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1264</xloc>
-      <yloc>336</yloc>
+      <xloc>1456</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
