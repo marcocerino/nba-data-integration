@@ -553,6 +553,7 @@
     <cypher>Match (n:Coach)-[r:COACHED]->(m) return 
 n.name as coach,
 m.team as team, 
+m.year as year,
 r.wins as wins,
 r.games as games,
 r.losses as losses</cypher>
@@ -589,6 +590,11 @@ r.losses as losses</cypher>
       </return>
       <return>
         <name>losses</name>
+        <type>Integer</type>
+        <source_type>Integer</source_type>
+      </return>
+      <return>
+        <name>year</name>
         <type>Integer</type>
         <source_type>Integer</source_type>
       </return>

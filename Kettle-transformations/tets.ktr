@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Add foreign keys</name>
+    <name>tets</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,95 +427,204 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2021/04/30 11:54:01.642</created_date>
+    <created_date>2021/05/19 16:25:50.936</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2021/04/30 11:54:01.642</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2021/05/19 16:25:50.936</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
-  <connection>
-    <name>nba</name>
-    <server>localhost</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>nba-data-integration</database>
-    <port>5432</port>
-    <username>pentaho</username>
-    <password>Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>5432</attribute>
-      </attribute>
-      <attribute>
-        <code>PRESERVE_RESERVED_WORD_CASE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
   <order>
+    <hop>
+      <from>CSV attendance input</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>CSV nick input</from>
+      <to>Sort rows 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Sort rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>Merge join</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 2</from>
+      <to>Merge join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Unique rows</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>Unique rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Unique rows</from>
+      <to>Merge join</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
-    <name>Alter Champion </name>
-    <type>ExecSQL</type>
+    <name>CSV attendance input</name>
+    <type>CsvInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS Champion DROP CONSTRAINT IF EXISTS fk_team_champion;
-
-ALTER TABLE IF  EXISTS Champion
-ADD CONSTRAINT fk_team_champion foreign key (champion) references team(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <filename>/home/cerino/Projects/nba-data-integration/source-db/gmoney-nba-team-annual-attendance/data/nba_team_annual_attendance.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
+    <fields>
+      <field>
+        <name>starting_year</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>rank</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>team</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>13</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>home_total_games</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>home_total_attendance</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>home_avg_attendance</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>home_capactiy</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>€</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>away_total_games</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>away_total_attendance</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>away_avg_attendance</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>€</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>away_capactiy</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -526,14 +634,14 @@ ADD CONSTRAINT fk_team_champion foreign key (champion) references team(name)
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>240</yloc>
+      <xloc>442</xloc>
+      <yloc>218</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Alter Draft</name>
-    <type>ExecSQL</type>
+    <name>CSV nick input</name>
+    <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -542,26 +650,55 @@ ADD CONSTRAINT fk_team_champion foreign key (champion) references team(name)
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS Draft DROP CONSTRAINT IF EXISTS fk_player_draft;
-ALTER TABLE IF EXISTS Draft DROP CONSTRAINT IF EXISTS fk_team_draft;
-
-ALTER TABLE IF  EXISTS Draft
-ADD CONSTRAINT fk_player_draft foreign key (player) references player(name);
-ALTER TABLE IF  EXISTS Draft
-ADD CONSTRAINT fk_team_draft foreign key (team) references team(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <filename>/home/cerino/Projects/nba-data-integration/myFunction.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
+    <fields>
+      <field>
+        <name>name</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>22</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>city</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>13</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>nick</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <length>13</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -571,14 +708,14 @@ ADD CONSTRAINT fk_team_draft foreign key (team) references team(name)
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>336</yloc>
+      <xloc>490</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Alter PlayedAt </name>
-    <type>ExecSQL</type>
+    <name>Merge join</name>
+    <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -587,27 +724,15 @@ ADD CONSTRAINT fk_team_draft foreign key (team) references team(name)
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS PlayedAt DROP CONSTRAINT IF EXISTS fk_player_playedAt;
-ALTER TABLE IF EXISTS PlayedAt DROP CONSTRAINT IF EXISTS fk_team_playedAt;
-
-ALTER TABLE IF EXISTS PlayedAt
-ADD CONSTRAINT fk_player_playedAt FOREIGN KEY (player) REFERENCES player(name)
-;
-ALTER TABLE IF EXISTS PlayedAt
-ADD CONSTRAINT fk_team_playedAt FOREIGN KEY (team)REFERENCES team(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <join_type>INNER</join_type>
+    <step1>Unique rows</step1>
+    <step2>Sort rows 2</step2>
+    <keys_1>
+      <key>team</key>
+    </keys_1>
+    <keys_2>
+      <key>nick</key>
+    </keys_2>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -617,39 +742,29 @@ ADD CONSTRAINT fk_team_playedAt FOREIGN KEY (team)REFERENCES team(name)
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>496</yloc>
+      <xloc>1200</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Alter Record </name>
-    <type>ExecSQL</type>
+    <name>Select values</name>
+    <type>SelectValues</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS Record DROP CONSTRAINT IF EXISTS fk_team_record;
-
-ALTER TABLE IF  EXISTS Record
-ADD CONSTRAINT fk_team_record FOREIGN KEY (team) REFERENCES team(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <fields>
+      <field>
+        <name>team</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -659,39 +774,39 @@ ADD CONSTRAINT fk_team_record FOREIGN KEY (team) REFERENCES team(name)
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>128</yloc>
+      <xloc>576</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Alter Roaster </name>
-    <type>ExecSQL</type>
+    <name>Sort rows</name>
+    <type>SortRows</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS Roster DROP CONSTRAINT IF EXISTS fk_team_roster;
-
-ALTER TABLE IF EXISTS Roster
-ADD constraint fk_team_roster foreign key (team) references team(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>team</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -701,14 +816,14 @@ ADD constraint fk_team_roster foreign key (team) references team(name)
       </output>
     </remotesteps>
     <GUI>
-      <xloc>624</xloc>
-      <yloc>432</yloc>
+      <xloc>810</xloc>
+      <yloc>234</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Alter Salaries </name>
-    <type>ExecSQL</type>
+    <name>Sort rows 2</name>
+    <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -717,24 +832,23 @@ ADD constraint fk_team_roster foreign key (team) references team(name)
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>
-ALTER TABLE IF EXISTS Salary DROP CONSTRAINT IF EXISTS fk_player_salary;
-
-ALTER TABLE IF  EXISTS Salary
-ADD CONSTRAINT fk_player_salary FOREIGN KEY (player)REFERENCES player(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>nick</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -744,14 +858,14 @@ ADD CONSTRAINT fk_player_salary FOREIGN KEY (player)REFERENCES player(name)
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>320</yloc>
+      <xloc>778</xloc>
+      <yloc>410</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Alter WonAward </name>
-    <type>ExecSQL</type>
+    <name>Unique rows</name>
+    <type>Unique</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -760,28 +874,16 @@ ADD CONSTRAINT fk_player_salary FOREIGN KEY (player)REFERENCES player(name)
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS WonAward DROP CONSTRAINT IF EXISTS fk_player_WonAward;
-ALTER TABLE IF EXISTS WonAward DROP CONSTRAINT IF EXISTS fk_award_WonAward;
-
-
-ALTER TABLE IF EXISTS  WonAward
-ADD CONSTRAINT fk_player_wonAward FOREIGN KEY (player) REFERENCES player(name)
-;
-ALTER TABLE IF EXISTS  WonAward
-ADD CONSTRAINT fk_award_wonAward FOREIGN KEY (award) REFERENCES award(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>team</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -791,140 +893,8 @@ ADD CONSTRAINT fk_award_wonAward FOREIGN KEY (award) REFERENCES award(name)
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>400</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Alter WonCOY </name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS WonCOY DROP CONSTRAINT IF EXISTS fk_coach_wonCOY;
-
-ALTER TABLE IF EXISTS  WonCOY
-ADD CONSTRAINT fk_coach_wonCOY FOREIGN KEY (coach) REFERENCES coach(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>320</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Alter coached </name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS Coached DROP CONSTRAINT IF EXISTS fk_coach_coached;
-ALTER TABLE IF EXISTS Coached DROP CONSTRAINT IF EXISTS fk_team_coached;
-
-
-ALTER TABLE IF  EXISTS Coached
-ADD CONSTRAINT fk_coach_coached FOREIGN KEY (coach) REFERENCES coach(name)
-;
-ALTER TABLE IF  EXISTS Coached
-ADD CONSTRAINT fk_team_coached FOREIGN KEY (team) REFERENCES team(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>304</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Alter Attendances</name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>ALTER TABLE IF EXISTS attendances DROP CONSTRAINT IF EXISTS fk_team_attendances;
-
-
-ALTER TABLE IF  EXISTS attendances
-ADD CONSTRAINT fk_team_attendances FOREIGN KEY (team) REFERENCES team(name)
-;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>544</yloc>
+      <xloc>992</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

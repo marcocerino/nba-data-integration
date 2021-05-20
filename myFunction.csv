@@ -1,7 +1,7 @@
 name,city,nick
 Atlanta Hawks,Atlanta,Hawks
 Boston Celtics,Boston,Celtics
-New Orleans Pelicans,New Orleans,Pellicans
+New Orleans Pelicans,New Orleans,Pelicans
 Chicago Bulls,Chicago,Bulls
 Dallas Mavericks,Dallas,Mavericks
 Denver Nuggets,Denver,Nuggets
@@ -12,7 +12,7 @@ Miami Heat,Miami,Heat
 Milwaukee Bucks,Milwaukee,Bucks
 Minnesota Timberwolves,Minnesota,Timberwolves
 Brooklyn Nets,Brooklyn,Nets
-New York Knicks,New York,Knicks
+New York Knicks,New York,NY Knicks
 Orlando Magic,Orlando,Magic
 Indiana Pacers,Indiana,Pacers
 Philadelphia 76ers,Philadelphia,76ers
@@ -27,5 +27,5 @@ Memphis Grizzlies,Memphis,Grizzlies
 Washington Wizards,Washington,Wizards
 Detroit Pistons,Detroit,Pistons
 Charlotte Hornets,Charlotte,Hornets
-Cleveland Cavaliers,Cleveland,Cavaliers   
 Golden State Warriors,Golden State,Warriors
+Cleveland Cavaliers,Cleveland,Cavaliers

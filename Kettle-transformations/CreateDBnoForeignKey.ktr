@@ -514,16 +514,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Create Coaches </from>
-      <to>Create  Arena</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Create  Arena</from>
-      <to>Create Roaster</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Create  Records   </from>
       <to>Create  WonAward  </to>
       <enabled>Y</enabled>
@@ -558,51 +548,12 @@
       <to>Create  Attendances  </to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Create Coaches </from>
+      <to>Create Roaster</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>Create  Arena</name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>nba</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>DROP TABLE IF EXISTS Arena CASCADE;
-CREATE TABLE Arena(
-"name" TEXT,
-team TEXT,
-primary key ("name",team)
-);
-</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>176</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Create  Attendances  </name>
     <type>ExecSQL</type>
@@ -622,11 +573,10 @@ primary key ("name",team)
     <sql>DROP TABLE IF EXISTS Attendances;
 CREATE TABLE Attendances(
 "year" BIGINT
-, arena TEXT
+, team varchar(23)
 , total_games BIGINT
 , total_attendance BIGINT
 , avg_attendance BIGINT
-,PRIMARY KEY ("year",arena)
 )
 ;</sql>
     <set_params>N</set_params>
@@ -896,6 +846,7 @@ CREATE TABLE  Coached
 (
   coach TEXT
 , team TEXT
+, "year" DOUBLE
 , wins DOUBLE PRECISION
 , games DOUBLE PRECISION
 , losses DOUBLE PRECISION
